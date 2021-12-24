@@ -42,4 +42,3 @@ export function isLaunchByCommand(context: Context): boolean {
 export function isLaunchByEvent(context: Context): boolean {
     return context.event.command_id === undefined;
 }
-
