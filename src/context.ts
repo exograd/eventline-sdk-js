@@ -14,8 +14,8 @@ export interface Event {
     readonly org_id: Id;
     readonly trigger_id?: Id;
     readonly command_id?: Id;
-    readonly creation_time: Date;
-    readonly event_time: Date;
+    readonly creation_time: string;
+    readonly event_time: string;
     readonly name: string;
     readonly data: Object;
 }
