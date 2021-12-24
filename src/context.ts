@@ -35,10 +35,12 @@ export function loadContext(): Promise<Context> {
     });
 }
 
-export function isLaunchByCommand(context: Context): boolean {
-    return context.event.trigger_id === undefined;
+export function isLaunchByCommand(ctx: Context): boolean {
+    return ctx.event.trigger_id === undefined;
 }
 
-export function isLaunchByEvent(context: Context): boolean {
-    return context.event.command_id === undefined;
+export function isLaunchByEvent(ctx: Context): boolean {
+    return ctx.event.command_id === undefined;
+}
+
 }
