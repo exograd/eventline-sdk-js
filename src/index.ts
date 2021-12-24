@@ -14,3 +14,7 @@ export function getCurrentProjectName(): MaybeString {
     return process.env.EVENTLINE_PROJECT_NAME;
 }
 
+export function getCurrentPipelineId(): MaybeId {
+    return process.env.EVENTLINE_PIPELINE_ID;
+}
+
