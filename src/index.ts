@@ -18,3 +18,6 @@ export function getCurrentPipelineId(): MaybeId {
     return process.env.EVENTLINE_PIPELINE_ID;
 }
 
+export function getCurrentTaskId(): MaybeId {
+    return process.env.EVENTLINE_TASK_ID;
+}
