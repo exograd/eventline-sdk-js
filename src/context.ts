@@ -23,13 +23,14 @@ export interface Event {
 export function loadContext(): Promise<Context> {
     return new Promise(function(resolve, reject) {
         readFile("/eventline/task/context", function(err, file): void {
-            if (err) {
-                reject(err);
-                return;
+            if (err) reject(err);
+            else {
+                try {
+                    resolve(JSON.parse(file.toString()));
+                } catch (err) {
+                    reject(err);
+                }
             }
-
-            const ctx: Context = JSON.parse(file.toString());
-            resolve(ctx);
         });
     });
 }
