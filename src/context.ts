@@ -19,3 +19,18 @@ export interface Event {
     readonly name: string;
     readonly data: Object;
 }
+
+export function loadContext(): Promise<Context> {
+    return new Promise(function(resolve, reject) {
+        readFile("/eventline/task/context", function(err, file): void {
+            if (err) {
+                reject(err);
+                return;
+            }
+
+            const ctx: Context = JSON.parse(file.toString());
+            resolve(ctx);
+        });
+    });
+}
+
