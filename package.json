@@ -4,6 +4,7 @@
   "description": "The eventline javascript SDK",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/exograd/eventline-sdk-js/issues"
   },
-  "homepage": "https://github.com/exograd/eventline-sdk-js#readme"
+  "homepage": "https://github.com/exograd/eventline-sdk-js#readme",
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
 }
