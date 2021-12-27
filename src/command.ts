@@ -9,8 +9,8 @@ export type ParameterType = "string" | "number" | "boolean";
 
 export interface CommandParameters {
     name: string;
-    description: string;
+    description?: string;
     type: ParameterType;
-    default: any;
-    environment: string;
+    default?: any;
+    environment?: string;
 }
