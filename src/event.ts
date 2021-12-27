@@ -1,4 +1,4 @@
-import type { Id } from "./index.js";
+import type { Id } from "@ev/index.js";
 
 export interface Event {
     id: Id;
