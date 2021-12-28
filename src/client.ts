@@ -60,7 +60,14 @@ export function makeRequest(opts: Options) {
           const responseType = response.headers["content-type"];
 
           if (!response.complete)
-            return reject(new Error("incomplete error network"));
+            return reject(
+              new RequestError(
+                status ?? 0,
+                "incomplete_response",
+                {},
+                "incomplete response"
+              )
+            );
 
           if (status === undefined || status < 200 || status >= 300)
             hasSucceeded = false;
