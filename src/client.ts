@@ -73,18 +73,29 @@ export function makeClient(opts: Options) {
             hasSucceeded = false;
 
           if (responseType === "application/json") {
-            const data = JSON.parse(buf);
+            try {
+              const data = JSON.parse(buf);
 
-            if (hasSucceeded) resolve(data);
-            else
+              if (hasSucceeded) resolve(data);
+              else
+                reject(
+                  new RequestError(
+                    status ?? 0,
+                    data.code ?? "unknown_error",
+                    data.data ?? {},
+                    data.error
+                  )
+                );
+            } catch {
               reject(
                 new RequestError(
                   status ?? 0,
-                  data.code ?? "unknown_error",
-                  data.data ?? {},
-                  data.error
+                  "invalid_json",
+                  buf,
+                  "invalid json body"
                 )
               );
+            }
           } else {
             if (hasSucceeded) resolve(buf);
             else reject(new RequestError(status ?? 0, "unknown_error", buf));
