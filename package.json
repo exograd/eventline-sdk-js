@@ -1,27 +1,28 @@
 {
-    "name": "eventline-sdk",
-    "version": "1.0.0",
-    "description": "The eventline javascript SDK",
-    "main": "index.js",
-    "files": [
-        "dist/**/*"
-    ],
-    "scripts": {
-        "build": "tsc",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/exograd/eventline-sdk-js.git"
-    },
-    "author": "Exograd SAS",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/exograd/eventline-sdk-js/issues"
-    },
-    "homepage": "https://github.com/exograd/eventline-sdk-js#readme",
-    "devDependencies": {
-        "@types/node": "^17.0.4",
-        "typescript": "^4.5.4"
-    }
+  "name": "eventline-sdk",
+  "version": "1.0.0",
+  "description": "The eventline javascript SDK",
+  "main": "index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exograd/eventline-sdk-js.git"
+  },
+  "author": "Exograd SAS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/exograd/eventline-sdk-js/issues"
+  },
+  "homepage": "https://github.com/exograd/eventline-sdk-js#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.4",
+    "prettier": "2.5.1",
+    "typescript": "^4.5.4"
+  }
 }
