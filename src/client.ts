@@ -34,7 +34,11 @@ export class RequestError extends Error {
   }
 }
 
-export function makeClient(opts: Options) {
+declare function Client(verb: Verb, path: string, body?: string): Promise<any>;
+
+export type Client = typeof Client;
+
+export function makeClient(opts: Options): Client {
   const host: string = opts.host ?? "api.eventline.net";
   const port: number = opts.port ?? 443;
   const scheme: string = opts.scheme ?? "https";
@@ -49,7 +53,11 @@ export function makeClient(opts: Options) {
     Authorization: "Bearer " + token,
   };
 
-  return function (verb: Verb, path: string, body?: string) {
+  return function (
+    verb: Verb,
+    path: string,
+    body?: string
+  ): Promise<object | string> {
     const url = new URL(path, endpoint);
     const options = {
       method: verb,
