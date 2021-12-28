@@ -14,11 +14,16 @@ export interface Options {
 }
 
 export class RequestError extends Error {
-  public status: number;
+  public status: number | undefined;
   public code: string;
   public data: any;
 
-  constructor(status: number, code: string, data: any, msg?: string) {
+  constructor(
+    status: number | undefined,
+    code: string,
+    data: any,
+    msg?: string
+  ) {
     super(msg);
 
     this.status = status;
@@ -62,7 +67,7 @@ export function makeClient(opts: Options) {
           if (!response.complete)
             return reject(
               new RequestError(
-                status ?? 0,
+                status,
                 "incomplete_response",
                 {},
                 "incomplete response"
@@ -80,7 +85,7 @@ export function makeClient(opts: Options) {
               else
                 reject(
                   new RequestError(
-                    status ?? 0,
+                    status,
                     data.code ?? "unknown_error",
                     data.data ?? {},
                     data.error
@@ -89,7 +94,7 @@ export function makeClient(opts: Options) {
             } catch {
               reject(
                 new RequestError(
-                  status ?? 0,
+                  status,
                   "invalid_json",
                   buf,
                   "invalid json body"
@@ -98,7 +103,7 @@ export function makeClient(opts: Options) {
             }
           } else {
             if (hasSucceeded) resolve(buf);
-            else reject(new RequestError(status ?? 0, "unknown_error", buf));
+            else reject(new RequestError(status, "unknown_error", buf));
           }
         });
       });
