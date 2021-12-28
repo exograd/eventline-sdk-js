@@ -29,7 +29,7 @@ export class RequestError extends Error {
   }
 }
 
-export function makeRequest(opts: Options) {
+export function makeClient(opts: Options) {
   const host: string = opts.host ?? "api.eventline.net";
   const port: number = opts.port ?? 443;
   const scheme: string = opts.scheme ?? "https";
