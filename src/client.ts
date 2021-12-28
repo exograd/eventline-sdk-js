@@ -51,7 +51,11 @@ export function makeClient(opts: Options) {
 
   return function (verb: Verb, path: string, body?: string) {
     const url = new URL(path, endpoint);
-    const options = { method: verb, headers: defaultHeaderFields };
+    const options = {
+      method: verb,
+      headers: defaultHeaderFields,
+      timeout: 30_000,
+    };
 
     return new Promise(function (resolve, reject) {
       const request = httpRequest(url, options, function (response) {
@@ -108,6 +112,7 @@ export function makeClient(opts: Options) {
         });
       });
       request.on("error", reject);
+      request.on("timeout", request.abort);
       request.end();
     });
   };
