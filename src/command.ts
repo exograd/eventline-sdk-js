@@ -29,10 +29,19 @@ export interface CommandParameter {
   type: "string" | "number" | "boolean";
 }
 
+export interface GetCommandByNameRequest {
+  name: string;
+}
+
+export type GetCommandByNameResponse = Promise<Command>;
+
 export async function getCommandByName(
   client: Client,
-  name: string
-): Promise<Command> {
-  const command: Command = await client("GET", "/v0/commands/name/" + name);
+  request: GetCommandByNameRequest
+): GetCommandByNameResponse {
+  const command: Command = await client(
+    "GET",
+    "/v0/commands/name/" + request.name
+  );
   return command;
 }
