@@ -2,8 +2,6 @@ import type { Id } from "@ev";
 import type { Client } from "@ev/client";
 import type { Resource } from "@ev/resource";
 
-import { makeClient } from "@ev/client";
-
 export interface Command {
   id: Id;
   org_id: Id;
