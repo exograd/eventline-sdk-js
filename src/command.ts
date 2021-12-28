@@ -11,7 +11,6 @@ export interface Command {
   creation_time: string;
   update_time: string;
   disabled: boolean;
-
   spec: Resource<CommandData>;
 }
 
