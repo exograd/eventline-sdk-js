@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
+      "@ev": ["src/index.ts"],
       "@ev/*": ["src/*"]
     }
   },

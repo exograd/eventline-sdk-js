@@ -1,4 +1,4 @@
-import type { Id } from "@ev/index";
+import type { Id } from "@ev";
 import type { Event } from "@ev/event";
 
 import { readFile } from "fs";

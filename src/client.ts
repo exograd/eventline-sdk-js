@@ -1,7 +1,7 @@
 import { request as httpRequest } from "https";
 import url from "url";
 
-import type { Id } from "@ev/index";
+import type { Id } from "@ev";
 
 export type Verb = "GET" | "POST" | "PUT" | "DELETE";
 
