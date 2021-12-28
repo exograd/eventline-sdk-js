@@ -14,29 +14,19 @@ export interface Options {
 }
 
 export class RequestError extends Error {
-  public status: number | undefined;
-  public code: string;
-  public data: any;
-
   constructor(
-    status: number | undefined,
-    code: string,
-    data: any,
+    public status: number | undefined,
+    public code: string,
+    public data: any,
     msg?: string
   ) {
     super(msg);
-
-    this.status = status;
-    this.code = code;
-    this.data = data;
 
     Object.setPrototypeOf(this, RequestError.prototype);
   }
 }
 
-declare function Client(verb: Verb, path: string, body?: string): Promise<any>;
-
-export type Client = typeof Client;
+export type Client = (verb: Verb, path: string, body?: string) => Promise<any>;
 
 export function makeClient(opts: Options): Client {
   const host: string = opts.host ?? "api.eventline.net";
