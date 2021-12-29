@@ -1,19 +1,4 @@
 import type { Client } from "@ev/client";
-import type { Parameter } from "@ev/parameter";
-import type {
-  Resource,
-  ListResourcesRequest,
-  ListResourcesResponse,
-  GetResourceRequest,
-  GetResourceResponse,
-} from "@ev/resource";
-
-import { listResources, getResource } from "@ev/resource";
-
-export interface Command {
-  parameters: Parameter[];
-  pipelines: string[];
-}
 
 export interface ExecuteCommandRequest {
   id: string;
