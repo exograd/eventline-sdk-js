@@ -1,4 +1,3 @@
-import type { Id } from "@ev";
 import type { Client } from "@ev/client";
 import type {
   Resource,
