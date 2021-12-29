@@ -64,7 +64,10 @@ export function makeClient(opts: Options): Client {
     let headerFields = defaultHeaderFields;
 
     if (body !== undefined)
-      headerFields = { "Content-Length": body.length, ...defaultHeaderFields };
+      headerFields = {
+        "Content-Length": body.length.toString(),
+        ...defaultHeaderFields,
+      };
 
     const options = {
       method: verb,
