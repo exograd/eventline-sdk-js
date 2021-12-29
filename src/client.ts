@@ -61,9 +61,14 @@ export function makeClient(opts: Options): Client {
     body?: string
   ): Promise<object | string> {
     const url = new URL(path, endpoint);
+    let headerFields = defaultHeaderFields;
+
+    if (body !== undefined)
+      headerFields = { "Content-Length": body.length, ...defaultHeaderFields };
+
     const options = {
       method: verb,
-      headers: defaultHeaderFields,
+      headers: headerFields,
       timeout: 30_000,
     };
 
@@ -123,6 +128,7 @@ export function makeClient(opts: Options): Client {
       });
       request.on("error", reject);
       request.on("timeout", request.abort);
+      if (body !== undefined) request.write(body);
       request.end();
     });
   };
