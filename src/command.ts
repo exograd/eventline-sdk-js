@@ -1,4 +1,5 @@
 import type { Client } from "@ev/client";
+import type { Parameter } from "@ev/parameter";
 import type {
   Resource,
   ListResourcesRequest,
@@ -10,14 +11,7 @@ import type {
 import { listResources, getResource } from "@ev/resource";
 
 export interface Command {
-  parameters: {
-    default?: string;
-    environment?: string;
-    name: string;
-    values?: string[];
-    description?: string;
-    type: "string" | "number" | "boolean";
-  }[];
+  parameters: Parameter[];
   pipelines: string[];
 }
 
