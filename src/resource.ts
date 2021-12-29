@@ -1,19 +1,7 @@
 import type { Id } from "@ev";
-import type { Client } from "@ev/client";
+import type { Client, ListResponse } from "@ev/client";
 
 import url from "url";
-
-export interface ListResponse<T> {
-  elements: T[];
-  next?: {
-    after: Id;
-    size: number;
-  };
-  previous: {
-    before: Id;
-    size: number;
-  };
-}
 
 export interface Resource<T> {
   id: Id;

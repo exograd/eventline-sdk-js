@@ -5,6 +5,18 @@ import type { Id } from "@ev";
 
 export type Verb = "GET" | "POST" | "PUT" | "DELETE";
 
+export interface ListResponse<T> {
+  elements: T[];
+  next?: {
+    after: Id;
+    size: number;
+  };
+  previous: {
+    before: Id;
+    size: number;
+  };
+}
+
 export interface Options {
   host?: string;
   port?: number;
