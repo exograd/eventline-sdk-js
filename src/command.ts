@@ -1,44 +1,45 @@
 import type { Id } from "@ev";
 import type { Client } from "@ev/client";
-import type { Resource } from "@ev/resource";
+import type {
+  Resource,
+  ListResourcesRequest,
+  ListResourcesResponse,
+  GetResourceRequest,
+  GetResourceResponse,
+} from "@ev/resource";
+
+import { listResources, getResource } from "@ev/resource";
 
 export interface Command {
-  id: Id;
-  org_id: Id;
-  project_id: Id;
-  creation_time: string;
-  update_time: string;
-  disabled: boolean;
-  spec: Resource<CommandData>;
-}
-
-export interface CommandData {
-  parameters: CommandParameter[];
+  parameters: {
+    default?: string;
+    environment?: string;
+    name: string;
+    values?: string[];
+    description?: string;
+    type: "string" | "number" | "boolean";
+  }[];
   pipelines: string[];
 }
 
-export interface CommandParameter {
-  default?: string;
-  environment?: string;
-  name: string;
-  values?: string[];
-  description?: string;
-  type: "string" | "number" | "boolean";
-}
+export type ListCommandsRequest = Pick<ListResourcesRequest, "after" | "size">;
 
-export interface GetCommandByNameRequest {
-  name: string;
-}
+export type ListCommandsResponse = ListResourcesResponse<Command>;
 
-export type GetCommandByNameResponse = Promise<Command>;
-
-export async function getCommandByName(
+export async function listCommands(
   client: Client,
-  request: GetCommandByNameRequest
-): GetCommandByNameResponse {
-  const command: Command = await client(
-    "GET",
-    "/v0/commands/name/" + request.name
-  );
-  return command;
+  request: ListCommandsRequest
+): Promise<ListCommandsResponse> {
+  return listResources(client, { type: "command", ...request });
+}
+
+export type GetCommandRequest = GetResourceRequest;
+
+export type GetCommandResponse = GetResourceResponse<Command>;
+
+export async function getCommand(
+  client: Client,
+  request: GetCommandRequest
+): Promise<GetCommandResponse> {
+  return getResource(client, request);
 }
