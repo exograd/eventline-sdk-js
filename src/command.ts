@@ -15,28 +15,6 @@ export interface Command {
   pipelines: string[];
 }
 
-export type ListCommandsRequest = Pick<ListResourcesRequest, "after" | "size">;
-
-export type ListCommandsResponse = ListResourcesResponse<Command>;
-
-export async function listCommands(
-  client: Client,
-  request: ListCommandsRequest
-): Promise<ListCommandsResponse> {
-  return listResources(client, { type: "command", ...request });
-}
-
-export type GetCommandRequest = GetResourceRequest;
-
-export type GetCommandResponse = GetResourceResponse<Command>;
-
-export async function getCommand(
-  client: Client,
-  request: GetCommandRequest
-): Promise<GetCommandResponse> {
-  return getResource(client, request);
-}
-
 export interface ExecuteCommandRequest {
   id: string;
   parameters: Record<string, string | number | boolean>;

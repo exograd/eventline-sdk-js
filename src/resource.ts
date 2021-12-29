@@ -13,15 +13,78 @@ export interface Resource<T> {
   spec: ResourceSpec<T>;
 }
 
+export type ResourceType = "command" | "pipeline" | "task" | "trigger";
+
 export interface ResourceSpec<T> {
-  type: string;
+  type: ResourceType;
   version: 1;
   name: string;
   description?: string;
   data: T;
 }
 
-export type ResourceType = "command" | "task" | "pipeline" | "trigger";
+export interface Command {
+  parameters: Parameter[];
+  pipelines: string[];
+}
+
+export interface Parameter {
+  name: string;
+  type: "string" | "number" | "boolean";
+  values?: string[];
+  default?: string;
+  description?: string;
+  environment?: string;
+}
+
+export interface Pipeline {
+  concurrent?: boolean;
+  tasks: PipelineTask[];
+}
+
+export interface PipelineTask {
+  name?: string;
+  label?: string;
+  task: string;
+  parameters?: object;
+  dependencies?: string[];
+  on_failure?: "abort" | "continue";
+  nb_instances?: number;
+  nb_retries?: number;
+  retry_delay?: number;
+}
+
+export interface Task {
+  runtime: TaskRuntime;
+  steps: TaskStep[];
+  environment?: Record<string, string>;
+  identities?: string[];
+  parameters?: Parameter[];
+}
+
+export interface TaskRuntime {
+  name: "container";
+  parameters: {
+    image: string;
+    host_type?: "small" | "medium" | "large";
+    registry_identities?: string[];
+    extra_containers?: {
+      name: string;
+      image: string;
+      command?: string;
+      arguments?: string[];
+      environment: Record<string, string>;
+    }[];
+  }
+}
+
+export interface TaskStep {
+  label?: string;
+  command?: string;
+  code?: string;
+  source?: string;
+  arguments?: string;
+}
 
 export interface ListResourcesRequest {
   type?: ResourceType;
