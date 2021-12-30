@@ -124,7 +124,6 @@ export async function listResources<T>(
 }
 
 export interface GetResourceRequest {
-  by?: "id" | "name";
   id: string;
 }
 
@@ -134,10 +133,8 @@ export async function getResource<T>(
   client: Client,
   request: GetResourceRequest
 ): Promise<GetResourceResponse<T>> {
-  const by = request.by ?? "id";
-
   return client(
     "GET",
-    url.format({ pathname: "/v0/resources/" + by + "/" + request.id })
+    url.format({ pathname: "/v0/resources/id/" + request.id })
   );
 }
