@@ -116,9 +116,9 @@ export async function listResources<T>(
 ): Promise<ListResourcesResponse<T>> {
   const query: Record<string, string> = {};
 
-  if (request.type !== undefined) query.type = request.type;
-  if (request.after !== undefined) query.after = request.after;
-  if (request.size !== undefined) query.size = request.size.toString();
+  if (request.type !== undefined) query["type"] = request.type;
+  if (request.after !== undefined) query["after"] = request.after;
+  if (request.size !== undefined) query["size"] = request.size.toString();
 
   return client("GET", url.format({ pathname: "/v0/resources", query: query }));
 }

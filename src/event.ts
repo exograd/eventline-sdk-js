@@ -46,11 +46,12 @@ export async function listEvents(
 ): Promise<ListEventsResponse> {
   const query: Record<string, string> = {};
 
-  if (request.after !== undefined) query.after = request.after;
-  if (request.size !== undefined) query.size = request.size.toString();
-  if (request.pipelineId !== undefined) query.pipeline_id = request.pipelineId;
-  if (request.connector !== undefined) query.connector = request.connector;
-  if (request.name !== undefined) query.name = request.name;
+  if (request.after !== undefined) query["after"] = request.after;
+  if (request.size !== undefined) query["size"] = request.size.toString();
+  if (request.pipelineId !== undefined)
+    query["pipeline_id"] = request.pipelineId;
+  if (request.connector !== undefined) query["connector"] = request.connector;
+  if (request.name !== undefined) query["name"] = request.name;
 
   return client("GET", url.format({ pathname: "/v0/events", query: query }));
 }

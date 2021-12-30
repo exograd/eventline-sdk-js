@@ -21,7 +21,7 @@ export type Maybe<T> = T | undefined;
  * Returns `true` when the function is called in an Eventline instance.
  */
 export function isExecutedInEventline(): boolean {
-  return process.env.EVENTLINE === "true";
+  return process.env["EVENTLINE"] === "true";
 }
 
 /**
@@ -29,7 +29,7 @@ export function isExecutedInEventline(): boolean {
  * Eventline instance.
  */
 export function getCurrentProjectId(): Maybe<Id> {
-  return process.env.EVENTLINE_PROJECT_ID;
+  return process.env["EVENTLINE_PROJECT_ID"];
 }
 
 /**
@@ -37,7 +37,7 @@ export function getCurrentProjectId(): Maybe<Id> {
  * Eventline instance.
  */
 export function getCurrentProjectName(): Maybe<string> {
-  return process.env.EVENTLINE_PROJECT_NAME;
+  return process.env["EVENTLINE_PROJECT_NAME"];
 }
 
 /**
@@ -45,7 +45,7 @@ export function getCurrentProjectName(): Maybe<string> {
  * Eventline instance.
  */
 export function getCurrentPipelineId(): Maybe<Id> {
-  return process.env.EVENTLINE_PIPELINE_ID;
+  return process.env["EVENTLINE_PIPELINE_ID"];
 }
 
 /**
@@ -53,5 +53,5 @@ export function getCurrentPipelineId(): Maybe<Id> {
  * Eventline instance.
  */
 export function getCurrentTaskId(): Maybe<Id> {
-  return process.env.EVENTLINE_TASK_ID;
+  return process.env["EVENTLINE_TASK_ID"];
 }

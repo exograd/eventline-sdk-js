@@ -15,8 +15,7 @@
 // PERFORMANCE OF THIS SOFTWARE.
 
 import { request as httpRequest } from "https";
-import { TLSSocket } from "tls";
-import url from "url";
+import type { TLSSocket } from "tls";
 
 import type { Id } from "@ev";
 
@@ -65,7 +64,7 @@ export function makeClient(opts: Options): Client {
   const host: string = opts.host ?? "api.eventline.net";
   const port: number = opts.port ?? 443;
   const scheme: string = opts.scheme ?? "https";
-  const token: string = opts.token ?? process.env.EVCLI_API_KEY ?? "";
+  const token: string = opts.token ?? process.env["EVCLI_API_KEY"] ?? "";
   const endpoint: URL = new URL(`${scheme}://${host}:${port}`);
 
   const defaultHeaderFields: Record<string, string> = {
