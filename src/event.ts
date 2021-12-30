@@ -51,3 +51,26 @@ export async function getEvent(
 ): Promise<GetEventResponse> {
   return client("GET", "/v0/events/id/" + request.id);
 }
+
+export interface CreateEventRequest {
+  eventTime?: Date | string;
+  connector: string;
+  name: string;
+  data: object;
+}
+
+export type CreateEventResponse = Event;
+
+export async function createEvent(
+  client: Client,
+  request: CreateEventRequest
+): Promise<CreateEventResponse> {
+  const data = JSON.stringify({
+    event_time: request.eventTime ?? new Date(),
+    connector: request.connector,
+    name: request.name,
+    data: request.data,
+  });
+
+  return client("POST", "/v0/events", data);
+}
