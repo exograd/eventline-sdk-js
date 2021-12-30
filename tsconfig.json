@@ -5,8 +5,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
+    "declaration": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "declarationMap": true,
     "baseUrl": ".",
     "paths": {
       "@ev": ["src/index.ts"],
