@@ -14,10 +14,10 @@
 // TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 // PERFORMANCE OF THIS SOFTWARE.
 
-import { request as httpRequest } from "https";
 import type { TLSSocket } from "tls";
-
 import type { Id } from "@ev";
+
+import { request as httpRequest } from "https";
 
 export type Verb = "GET" | "POST" | "PUT" | "DELETE";
 
