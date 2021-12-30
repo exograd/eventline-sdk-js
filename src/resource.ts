@@ -75,7 +75,7 @@ export interface TaskRuntime {
       arguments?: string[];
       environment: Record<string, string>;
     }[];
-  }
+  };
 }
 
 export interface TaskStep {
