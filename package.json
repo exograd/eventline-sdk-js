@@ -2,7 +2,7 @@
   "name": "eventline-sdk",
   "version": "1.0.0",
   "description": "The eventline javascript SDK",
-  "main": "index.js",
+  "main": "dist/eventline.js",
   "files": [
     "dist/**/*"
   ],

@@ -9,10 +9,10 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "declarationMap": true,
-    "baseUrl": ".",
+    "baseUrl": "src/",
     "paths": {
-      "@ev": ["src/index.ts"],
-      "@ev/*": ["src/*"]
+      "@ev": ["eventline.ts"],
+      "@ev/*": ["*"]
     }
   },
   "include": ["src"],
