@@ -9,8 +9,8 @@ export function isExecutedInEventline(): boolean {
 }
 
 /**
-  * Returns the current project id when the function is called in an
-  * Eventline instance.
+ * Returns the current project id when the function is called in an
+ * Eventline instance.
  */
 export function getCurrentProjectId(): Maybe<Id> {
   return process.env.EVENTLINE_PROJECT_ID;
