@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+curl -o data/cacert.pem https://curl.se/ca/cacert.pem
