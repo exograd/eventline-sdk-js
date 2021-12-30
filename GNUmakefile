@@ -14,14 +14,17 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 # PERFORMANCE OF THIS SOFTWARE.
 
-all: build
+all: fmt build
 
 build:
 	npx tsc
+
+fmt:
+	npx prettier --write src
 
 clean:
 	$(RM) -r node_modules/
 	$(RM) -r dist/
 	$(RM) -r docs/
 
-.PHONY: all build clean
+.PHONY: all build fmt clean
