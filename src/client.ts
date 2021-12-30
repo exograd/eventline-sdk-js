@@ -1,4 +1,5 @@
 import { request as httpRequest } from "https";
+import { TLSSocket } from "tls";
 import url from "url";
 
 import type { Id } from "@ev";
@@ -39,6 +40,10 @@ export class RequestError extends Error {
 }
 
 export type Client = (verb: Verb, path: string, body?: string) => Promise<any>;
+
+export const CertificateFingerprintSet = [
+  "20:96:86:F8:FE:11:4A:17:23:99:99:FF:EC:4C:14:BA:2A:89:55:3E:9E:5A:3C:78:19:A6:63:C9:13:B7:93:7D",
+];
 
 export function makeClient(opts: Options): Client {
   const host: string = opts.host ?? "api.eventline.net";
@@ -131,6 +136,32 @@ export function makeClient(opts: Options): Client {
       });
       request.on("error", reject);
       request.on("timeout", request.abort);
+      request.on("socket", function (socket: TLSSocket) {
+        socket.on("secureConnect", function () {
+          const fingerprint = socket.getPeerCertificate().fingerprint256;
+
+          if (socket.authorized === false) {
+            request.emit(
+              "error",
+              new Error(socket.authorizationError.toString())
+            );
+            request.abort();
+            return;
+          }
+
+          if (
+            CertificateFingerprintSet.indexOf(fingerprint) === -1 &&
+            !socket.isSessionReused()
+          ) {
+            request.emit(
+              "error",
+              new Error("Certificate fingerprint does not match")
+            );
+            request.abort();
+            return;
+          }
+        });
+      });
       if (body !== undefined) request.write(body);
       request.end();
     });
