@@ -14,11 +14,50 @@
 // TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 // PERFORMANCE OF THIS SOFTWARE.
 
-import type { Client } from "@ev/client";
+import type { Id } from "@ev";
+import type { Client, ListResponse } from "@ev/client";
 
-export interface Account {}
+import url from "url";
 
-export interface GetAccountRequest {}
+export interface Account {
+  id: Id;
+  org_id: Id;
+  name: string;
+  email_address: string;
+  disabled: boolean;
+  creation_time: string;
+  last_login_time: string;
+  role: string;
+  last_project_id: Id;
+  settings: AccountSettings;
+}
+
+export interface AccountSettings {
+  date_format: "relative" | "absolute";
+}
+
+export interface ListAccountsRequest {
+  after?: Id;
+  size?: number;
+}
+
+export type ListAccountsResponse = ListResponse<Account>;
+
+export async function listAccounts(
+  client: Client,
+  request: ListAccountsRequest
+): Promise<ListAccountsResponse> {
+  const query: Record<string, string | number> = {};
+
+  if (request.after !== undefined) query["after"] = request.after;
+  if (request.size !== undefined) query["size"] = request.size;
+
+  return client("GET", url.format({ pathname: "/v0/accounts", query: query }));
+}
+
+export interface GetAccountRequest {
+  id: Id;
+}
 
 export type GetAccountResponse = Account;
 
@@ -26,5 +65,5 @@ export async function getAccount(
   client: Client,
   request: GetAccountRequest
 ): Promise<GetAccountResponse> {
-  return client("GET", "/v0/accounts");
+  return client("GET", "/v0/accounts/id/" + request.id);
 }
