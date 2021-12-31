@@ -67,3 +67,14 @@ export async function getAccount(
 ): Promise<GetAccountResponse> {
   return client("GET", "/v0/accounts/id/" + request.id);
 }
+
+export interface GetCurrentAccountRequest {}
+
+export type GetCurrentAccountResponse = Account;
+
+export async function getCurrentAccount(
+  client: Client,
+  _request: GetCurrentAccountRequest
+): Promise<GetCurrentAccountResponse> {
+  return client("GET", "/v0/account");
+}
