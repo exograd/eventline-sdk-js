@@ -68,6 +68,25 @@ const defaultOptions: Omit<Options, "projectId"> = {
   scheme: "https",
 };
 
+const checkServerIdentity = function (host: string, cert: PeerCertificate) {
+  const err = tls.checkServerIdentity(host, cert);
+  if (err) return err;
+
+  const fingerprint = crypto
+    .createHash("sha256")
+    .update((cert as any).pubkey)
+    .digest("base64");
+
+  if (PublicKeyPinSet.indexOf(fingerprint) === -1) {
+    const msg =
+      "Certificate verification error: " +
+      `The public key of '${cert.subject.CN}' ` +
+      "does not match any pinned fingerprints";
+    return new Error(msg);
+  }
+  return;
+};
+
 export function makeClient(opts: Options): Client {
   const options = { ...defaultOptions, ...opts };
   const timeout = 30_000;
@@ -93,24 +112,7 @@ export function makeClient(opts: Options): Client {
       method,
       timeout,
       ca,
-      checkServerIdentity: function (host: string, cert: PeerCertificate) {
-        const err = tls.checkServerIdentity(host, cert);
-        if (err) return err;
-
-        const fingerprint = crypto
-          .createHash("sha256")
-          .update((cert as any).pubkey)
-          .digest("base64");
-
-        if (PublicKeyPinSet.indexOf(fingerprint) === -1) {
-          const msg =
-            "Certificate verification error: " +
-            `The public key of '${cert.subject.CN}' ` +
-            "does not match any pinned fingerprints";
-          return new Error(msg);
-        }
-        return;
-      },
+      checkServerIdentity,
     };
 
     const httpOptions = {
