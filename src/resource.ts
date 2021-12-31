@@ -102,6 +102,14 @@ export interface TaskStep {
   arguments?: string;
 }
 
+export interface Trigger {
+  connector: string;
+  event: string;
+  identity?: string;
+  parameters?: object;
+  pipelines: string[];
+}
+
 export interface ListResourcesRequest {
   type?: ResourceType;
   after?: Id;
