@@ -14,15 +14,16 @@
 // TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 // PERFORMANCE OF THIS SOFTWARE.
 
+import type { Id } from "@ev";
 import type { Client } from "@ev/client";
 
 export interface ExecuteCommandRequest {
-  id: string;
+  id: Id;
   parameters: Record<string, string | number | boolean>;
 }
 
 export interface ExecuteCommandResponse {
-  pipeline_ids: string[];
+  pipeline_ids: Id[];
 }
 
 export async function executeCommand(

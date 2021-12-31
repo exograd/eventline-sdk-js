@@ -132,7 +132,7 @@ export async function listResources<T>(
 }
 
 export interface GetResourceRequest {
-  id: string;
+  id: Id;
 }
 
 export type GetResourceResponse<T> = Resource<T>;
