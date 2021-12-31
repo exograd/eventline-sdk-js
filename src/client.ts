@@ -61,7 +61,7 @@ export const CertificateFingerprintSet = [
   "20:96:86:F8:FE:11:4A:17:23:99:99:FF:EC:4C:14:BA:2A:89:55:3E:9E:5A:3C:78:19:A6:63:C9:13:B7:93:7D",
 ];
 
-const CACertificateBundle = readFileSync(__dirname + "/data/cacert.pem");
+const CACertificateBundle = readFileSync(__dirname + "/../data/cacert.pem");
 
 export function makeClient(opts: Options): Client {
   const host: string = opts.host ?? "api.eventline.net";
