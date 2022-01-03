@@ -60,6 +60,18 @@ export async function getProject(
   return client("GET", "/v0/projects/" + by + "/" + request.id);
 }
 
+export type CreateProjectRequest = Omit<Project, "id" | "org_id">;
+
+export type CreateProjectResponse = Project;
+
+export async function createProject(
+  client: Client,
+  request: CreateProjectRequest
+): Promise<CreateProjectResponse> {
+  const data = JSON.stringify(request);
+  return client("POST", "/v0/projects", data);
+}
+
 export interface DeleteProjectRequest {
   id: Id;
 }
