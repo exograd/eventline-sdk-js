@@ -60,7 +60,7 @@ export async function listEvents(
 }
 
 export interface GetEventRequest {
-  id: string;
+  id: Id;
 }
 
 export type GetEventResponse = Event;
