@@ -1,0 +1,45 @@
+// Copyright (c) 2021 Exograd SAS.
+//
+// Permission to use, copy, modify, and/or distribute this software for
+// any purpose with or without fee is hereby granted, provided that the
+// above copyright notice and this permission notice appear in all
+// copies.
+//
+// THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL
+// WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE
+// AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL
+// DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR
+// PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+// TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+// PERFORMANCE OF THIS SOFTWARE.
+
+import type { Id } from "@ev";
+import type { Client, ListResponse } from "@ev/client";
+
+import url from "url";
+
+export interface Project {
+  id: Id;
+  name: string;
+  org_id: Id;
+}
+
+export interface ListProjectsRequest {
+  after?: Id;
+  size?: number;
+}
+
+export type ListProjectsResponse = ListResponse<Project>;
+
+export async function listProjects(
+  client: Client,
+  request: ListProjectsRequest
+): Promise<ListProjectsResponse> {
+  const query: Record<string, string> = {};
+
+  if (request.after !== undefined) query["after"] = request.after;
+  if (request.size !== undefined) query["size"] = request.size.toString();
+
+  return client("GET", url.format({ pathname: "/v0/projects", query: query }));
+}
