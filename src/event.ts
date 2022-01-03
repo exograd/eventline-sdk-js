@@ -18,6 +18,7 @@ import type { Id } from "@ev";
 import type { Client, Pagination, Query, ListResponse } from "@ev/client";
 
 import url from "url";
+import { buildPaginationQuery } from "./client";
 
 export interface Event {
   id: Id;
@@ -44,10 +45,7 @@ export async function listEvents(
 ): Promise<ListEventsResponse> {
   const q: Query = {};
 
-  if (request.before !== undefined) q["before"] = request.before;
-  if (request.after !== undefined) q["after"] = request.after;
-  if (request.reverse !== undefined) q["reverse"] = request.reverse;
-  if (request.size !== undefined) q["size"] = request.size;
+  buildPaginationQuery(q, request);
   if (request.pipelineId !== undefined) q["pipeline_id"] = request.pipelineId;
   if (request.connector !== undefined) q["connector"] = request.connector;
   if (request.name !== undefined) q["name"] = request.name;

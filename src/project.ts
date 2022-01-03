@@ -18,6 +18,7 @@ import type { Id } from "@ev";
 import type { Client, Pagination, Query, ListResponse } from "@ev/client";
 
 import url from "url";
+import { buildPaginationQuery } from "./client";
 
 export interface Project {
   id: Id;
@@ -35,10 +36,7 @@ export async function listProjects(
 ): Promise<ListProjectsResponse> {
   const q: Query = {};
 
-  if (request.before !== undefined) q["before"] = request.before;
-  if (request.after !== undefined) q["after"] = request.after;
-  if (request.reverse !== undefined) q["reverse"] = request.reverse;
-  if (request.size !== undefined) q["size"] = request.size;
+  buildPaginationQuery(q, request);
 
   return client("GET", url.format({ pathname: "/v0/projects", query: q }));
 }

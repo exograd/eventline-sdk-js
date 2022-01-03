@@ -69,6 +69,13 @@ export class RequestError extends Error {
 
 export type Client = (verb: Verb, path: string, body?: string) => Promise<any>;
 
+export function buildPaginationQuery(q: Query, req: Pagination): void {
+  if (req.before !== undefined) q["before"] = req.before;
+  if (req.after !== undefined) q["after"] = req.after;
+  if (req.reverse !== undefined) q["reverse"] = req.reverse;
+  if (req.size !== undefined) q["size"] = req.size;
+}
+
 export const PublicKeyPinSet = ["gg3x7U4UrWfTUpYNy9wL2+GYOQhi3fg5UTn5pzA67gc="];
 
 const defaultOptions: Omit<Options, "projectId"> = {
