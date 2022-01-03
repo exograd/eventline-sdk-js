@@ -84,3 +84,18 @@ export async function deleteProject(
 ): Promise<DeleteProjectResponse> {
   return client("DELETE", "/v0/projects/id/" + request.id);
 }
+
+export interface UpdateProjectRequest {
+  id: Id;
+  project: Omit<Project, "id" | "org_id">;
+}
+
+export type UpdateProjectResponse = Project;
+
+export async function updateProject(
+  client: Client,
+  request: UpdateProjectRequest
+): Promise<UpdateProjectResponse> {
+  const data = JSON.stringify(request.project);
+  return client("PUT", "/v0/projects/id/" + request.id, data);
+}
