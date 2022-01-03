@@ -48,3 +48,16 @@ export async function listPipelines(
 
   return client("GET", url.format({ pathname: "/v0/pipelines", query: q }));
 }
+
+export interface GetPipelineRequest {
+  id: Id;
+}
+
+export type GetPipelineResponse = Pipeline;
+
+export async getPipeline(
+  client: Client,
+  request: GetPipelineRequest
+): Promise<GetPipelineResponse> {
+  return client("GET", "/v0/pipelines/id/" + request.id);
+}
