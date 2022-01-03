@@ -74,3 +74,19 @@ export async function restartPipeline(
 ): Promise<RestartPipelineResponse> {
   return client("POST", "/v0/pipelines/id/" + request.id + "/restart");
 }
+
+export interface RestartPipelineFromFailureRequest {
+  id: Id;
+}
+
+export interface RestartPipelineFromFailureResponse {}
+
+export async function restartPipelineFromFailure(
+  client: Client,
+  request: RestartPipelineFromFailureRequest
+): Promise<RestartPipelineFromFailureResponse> {
+  return client(
+    "POST",
+    "/v0/pipelines/id/" + request.id + "/restart_from_failure"
+  );
+}
