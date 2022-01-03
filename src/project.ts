@@ -45,7 +45,8 @@ export async function listProjects(
 }
 
 export interface GetProjectRequest {
-  id: string;
+  id: Id;
+  by?: "id" | "name";
 }
 
 export type GetProjectResponse = Project;
@@ -54,5 +55,7 @@ export async function getProject(
   client: Client,
   request: GetProjectRequest
 ): Promise<GetProjectResponse> {
-  return client("GET", "/v0/projects/id/" + request.id);
+  const by = request.by ?? "id";
+
+  return client("GET", "/v0/projects/" + by + "/" + request.id);
 }
