@@ -43,3 +43,16 @@ export async function listProjects(
 
   return client("GET", url.format({ pathname: "/v0/projects", query: query }));
 }
+
+export interface GetProjectRequest {
+  id: string;
+}
+
+export type GetProjectResponse = Project;
+
+export async function getProject(
+  client: Client,
+  request: GetProjectRequest
+): Promise<GetProjectResponse> {
+  return client("GET", "/v0/projects/id/" + request.id);
+}
