@@ -15,7 +15,7 @@
 // PERFORMANCE OF THIS SOFTWARE.
 
 import type { Id } from "@ev";
-import type { Client, Query, ListResponse } from "@ev/client";
+import type { Client, Pagination, Query, ListResponse } from "@ev/client";
 
 import url from "url";
 
@@ -25,12 +25,7 @@ export interface Project {
   org_id: Id;
 }
 
-export interface ListProjectsRequest {
-  after?: Id;
-  before?: Id;
-  size?: number;
-  reverse?: boolean;
-}
+export interface ListProjectsRequest extends Pagination {}
 
 export type ListProjectsResponse = ListResponse<Project>;
 

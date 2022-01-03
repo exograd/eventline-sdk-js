@@ -23,6 +23,13 @@ import url from "url";
 import tls from "tls";
 import crypto from "crypto";
 
+export interface Pagination {
+  after?: Id;
+  before?: Id;
+  size?: number;
+  reverse?: boolean;
+}
+
 export type Query = Record<string, string | number | boolean>;
 
 export type Verb = "GET" | "POST" | "PUT" | "DELETE";

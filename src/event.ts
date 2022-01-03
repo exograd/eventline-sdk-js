@@ -15,7 +15,7 @@
 // PERFORMANCE OF THIS SOFTWARE.
 
 import type { Id } from "@ev";
-import type { Client, Query, ListResponse } from "@ev/client";
+import type { Client, Pagination, Query, ListResponse } from "@ev/client";
 
 import url from "url";
 
@@ -30,11 +30,7 @@ export interface Event {
   data: Object;
 }
 
-export interface ListEventsRequest {
-  after?: Id;
-  before?: Id;
-  size?: number;
-  reverse?: boolean;
+export interface ListEventsRequest extends Pagination {
   pipelineId?: Id;
   connector?: string;
   name?: string;

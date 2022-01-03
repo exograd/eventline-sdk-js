@@ -15,7 +15,7 @@
 // PERFORMANCE OF THIS SOFTWARE.
 
 import type { Id } from "@ev";
-import type { Client, Query, ListResponse } from "@ev/client";
+import type { Client, Pagination, Query, ListResponse } from "@ev/client";
 
 import url from "url";
 
@@ -33,12 +33,7 @@ export interface Pipeline {
   status: "created" | "started" | "aborted" | "successful" | "failed";
 }
 
-export interface ListPipelinesRequest {
-  after?: Id;
-  before?: Id;
-  size?: number;
-  reverse?: boolean;
-}
+export interface ListPipelinesRequest extends Pagination {}
 
 export type ListPipelinesResponse = ListResponse<Pipeline>;
 
