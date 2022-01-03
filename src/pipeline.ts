@@ -55,7 +55,7 @@ export interface GetPipelineRequest {
 
 export type GetPipelineResponse = Pipeline;
 
-export async getPipeline(
+export async function getPipeline(
   client: Client,
   request: GetPipelineRequest
 ): Promise<GetPipelineResponse> {
