@@ -61,3 +61,16 @@ export async function getPipeline(
 ): Promise<GetPipelineResponse> {
   return client("GET", "/v0/pipelines/id/" + request.id);
 }
+
+export interface RestartPipelineRequest {
+  id: Id;
+}
+
+export interface RestartPipelineResponse {}
+
+export async function restartPipeline(
+  client: Client,
+  request: RestartPipelineRequest
+): Promise<RestartPipelineResponse> {
+  return client("POST", "/v0/pipelines/id/" + request.id + "/restart");
+}
