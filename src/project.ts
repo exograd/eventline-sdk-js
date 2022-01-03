@@ -59,3 +59,16 @@ export async function getProject(
 
   return client("GET", "/v0/projects/" + by + "/" + request.id);
 }
+
+export interface DeleteProjectRequest {
+  id: Id;
+}
+
+export interface DeleteProjectResponse {}
+
+export async function deleteProject(
+  client: Client,
+  request: DeleteProjectRequest
+): Promise<DeleteProjectResponse> {
+  return client("DELETE", "/v0/projects/id/" + request.id);
+}
