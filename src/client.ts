@@ -23,6 +23,8 @@ import url from "url";
 import tls from "tls";
 import crypto from "crypto";
 
+export type Query = Record<string, string | number | boolean>;
+
 export type Verb = "GET" | "POST" | "PUT" | "DELETE";
 
 export interface ListResponse<T> {

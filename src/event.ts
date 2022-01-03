@@ -15,7 +15,7 @@
 // PERFORMANCE OF THIS SOFTWARE.
 
 import type { Id } from "@ev";
-import type { Client, ListResponse } from "@ev/client";
+import type { Client, Query, ListResponse } from "@ev/client";
 
 import url from "url";
 
@@ -32,7 +32,9 @@ export interface Event {
 
 export interface ListEventsRequest {
   after?: Id;
+  before?: Id;
   size?: number;
+  reverse?: boolean;
   pipelineId?: Id;
   connector?: string;
   name?: string;
@@ -44,16 +46,17 @@ export async function listEvents(
   client: Client,
   request: ListEventsRequest
 ): Promise<ListEventsResponse> {
-  const query: Record<string, string> = {};
+  const q: Query = {};
 
-  if (request.after !== undefined) query["after"] = request.after;
-  if (request.size !== undefined) query["size"] = request.size.toString();
-  if (request.pipelineId !== undefined)
-    query["pipeline_id"] = request.pipelineId;
-  if (request.connector !== undefined) query["connector"] = request.connector;
-  if (request.name !== undefined) query["name"] = request.name;
+  if (request.before !== undefined) q["before"] = request.before;
+  if (request.after !== undefined) q["after"] = request.after;
+  if (request.reverse !== undefined) q["reverse"] = request.reverse;
+  if (request.size !== undefined) q["size"] = request.size;
+  if (request.pipelineId !== undefined) q["pipeline_id"] = request.pipelineId;
+  if (request.connector !== undefined) q["connector"] = request.connector;
+  if (request.name !== undefined) q["name"] = request.name;
 
-  return client("GET", url.format({ pathname: "/v0/events", query: query }));
+  return client("GET", url.format({ pathname: "/v0/events", query: q }));
 }
 
 export interface GetEventRequest {

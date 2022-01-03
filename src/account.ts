@@ -15,7 +15,7 @@
 // PERFORMANCE OF THIS SOFTWARE.
 
 import type { Id } from "@ev";
-import type { Client, ListResponse } from "@ev/client";
+import type { Client, Query, ListResponse } from "@ev/client";
 
 import url from "url";
 
@@ -38,7 +38,9 @@ export interface AccountSettings {
 
 export interface ListAccountsRequest {
   after?: Id;
+  before?: Id;
   size?: number;
+  reverse?: boolean;
 }
 
 export type ListAccountsResponse = ListResponse<Account>;
@@ -47,12 +49,14 @@ export async function listAccounts(
   client: Client,
   request: ListAccountsRequest
 ): Promise<ListAccountsResponse> {
-  const query: Record<string, string | number> = {};
+  const q: Query = {};
 
-  if (request.after !== undefined) query["after"] = request.after;
-  if (request.size !== undefined) query["size"] = request.size;
+  if (request.before !== undefined) q["before"] = request.before;
+  if (request.after !== undefined) q["after"] = request.after;
+  if (request.reverse !== undefined) q["reverse"] = request.reverse;
+  if (request.size !== undefined) q["size"] = request.size;
 
-  return client("GET", url.format({ pathname: "/v0/accounts", query: query }));
+  return client("GET", url.format({ pathname: "/v0/accounts", query: q }));
 }
 
 export interface GetAccountRequest {

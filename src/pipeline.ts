@@ -15,7 +15,7 @@
 // PERFORMANCE OF THIS SOFTWARE.
 
 import type { Id } from "@ev";
-import type { Client, ListResponse } from "@ev/client";
+import type { Client, Query, ListResponse } from "@ev/client";
 
 import url from "url";
 
@@ -46,12 +46,12 @@ export async function listPipelines(
   client: Client,
   request: ListPipelinesRequest
 ): Promise<ListPipelinesResponse> {
-  const query: Record<string, string | number | boolean> = {};
+  const q: Query = {};
 
-  if (request.before !== undefined) query["before"] = request.before;
-  if (request.after !== undefined) query["after"] = request.after;
-  if (request.reverse !== undefined) query["reverse"] = request.reverse;
-  if (request.size !== undefined) query["size"] = request.size;
+  if (request.before !== undefined) q["before"] = request.before;
+  if (request.after !== undefined) q["after"] = request.after;
+  if (request.reverse !== undefined) q["reverse"] = request.reverse;
+  if (request.size !== undefined) q["size"] = request.size;
 
-  return client("GET", url.format({ pathname: "/v0/pipelines", query: query }));
+  return client("GET", url.format({ pathname: "/v0/pipelines", query: q }));
 }

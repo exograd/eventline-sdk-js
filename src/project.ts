@@ -15,7 +15,7 @@
 // PERFORMANCE OF THIS SOFTWARE.
 
 import type { Id } from "@ev";
-import type { Client, ListResponse } from "@ev/client";
+import type { Client, Query, ListResponse } from "@ev/client";
 
 import url from "url";
 
@@ -27,7 +27,9 @@ export interface Project {
 
 export interface ListProjectsRequest {
   after?: Id;
+  before?: Id;
   size?: number;
+  reverse?: boolean;
 }
 
 export type ListProjectsResponse = ListResponse<Project>;
@@ -36,12 +38,14 @@ export async function listProjects(
   client: Client,
   request: ListProjectsRequest
 ): Promise<ListProjectsResponse> {
-  const query: Record<string, string> = {};
+  const q: Query = {};
 
-  if (request.after !== undefined) query["after"] = request.after;
-  if (request.size !== undefined) query["size"] = request.size.toString();
+  if (request.before !== undefined) q["before"] = request.before;
+  if (request.after !== undefined) q["after"] = request.after;
+  if (request.reverse !== undefined) q["reverse"] = request.reverse;
+  if (request.size !== undefined) q["size"] = request.size;
 
-  return client("GET", url.format({ pathname: "/v0/projects", query: query }));
+  return client("GET", url.format({ pathname: "/v0/projects", query: q }));
 }
 
 export interface GetProjectRequest {

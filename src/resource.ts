@@ -15,7 +15,7 @@
 // PERFORMANCE OF THIS SOFTWARE.
 
 import type { Id } from "@ev";
-import type { Client, ListResponse } from "@ev/client";
+import type { Client, Query, ListResponse } from "@ev/client";
 
 import url from "url";
 
@@ -111,9 +111,11 @@ export interface Trigger {
 }
 
 export interface ListResourcesRequest {
-  type?: ResourceType;
   after?: Id;
+  before?: Id;
   size?: number;
+  reverse?: boolean;
+  type?: ResourceType;
 }
 
 export type ListResourcesResponse<T> = ListResponse<Resource<T>>;
@@ -122,13 +124,15 @@ export async function listResources<T>(
   client: Client,
   request: ListResourcesRequest
 ): Promise<ListResourcesResponse<T>> {
-  const query: Record<string, string> = {};
+  const q: Query = {};
 
-  if (request.type !== undefined) query["type"] = request.type;
-  if (request.after !== undefined) query["after"] = request.after;
-  if (request.size !== undefined) query["size"] = request.size.toString();
+  if (request.before !== undefined) q["before"] = request.before;
+  if (request.after !== undefined) q["after"] = request.after;
+  if (request.reverse !== undefined) q["reverse"] = request.reverse;
+  if (request.size !== undefined) q["size"] = request.size;
+  if (request.type !== undefined) q["type"] = request.type;
 
-  return client("GET", url.format({ pathname: "/v0/resources", query: query }));
+  return client("GET", url.format({ pathname: "/v0/resources", query: q }));
 }
 
 export interface GetResourceRequest {
