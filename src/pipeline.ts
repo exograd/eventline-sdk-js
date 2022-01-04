@@ -147,3 +147,22 @@ export async function getScratchpadKey(
   );
 }
 
+export interface PutScratchpadKeyRequest {
+  id: Id;
+  key: string;
+  value: string;
+}
+
+export interface PutScratchpadKeyResponse {}
+
+export async function putScratchpadKey(
+  client: Client,
+  request: PutScratchpadKeyRequest
+): Promise<PutScratchpadKeyResponse> {
+  return client(
+    "PUT",
+    "/v0/pipelines/id/" + request.id + "/scratchpad/key/" + request.key,
+    request.value
+  );
+}
+
