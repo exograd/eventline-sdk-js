@@ -20,12 +20,34 @@ import type { Event } from "@ev/event";
 import { readFile } from "fs";
 
 export interface Context {
+  /**
+   * The event associated with the current pipeline.
+   */
   readonly event: Readonly<Event>;
+
+  /**
+   * The set of parameters passed to the task in the pipeline resource
+   * definition, associating the name of the parameter to its value.
+   */
   readonly task_parameters: Object;
+
+  /**
+   * When the task has multiple instances, the identifier of the
+   * instance, from 1 to the number of instances. If the task has a
+   * single instance, the identifier is set to 1.
+   */
   readonly instance_id: Id;
+
+  /**
+   * The set of identities which were listed in the task resource,
+   * associating the name of the identity to an object describing it.
+   */
   readonly identities: Object;
 }
 
+/**
+ * Load and decode Eventline context file.
+ */
 export function loadContext(): Promise<Context> {
   return new Promise(function (resolve, reject) {
     readFile("/eventline/task/context", function (err, file): void {
@@ -41,10 +63,16 @@ export function loadContext(): Promise<Context> {
   });
 }
 
+/**
+ * Returns `true` when the pipeline is launch by a command.
+ */
 export function isLaunchByCommand(ctx: Context): boolean {
   return ctx.event.trigger_id === undefined;
 }
 
+/**
+ * Returns `true` when the pipeline is launch by an event.
+ */
 export function isLaunchByEvent(ctx: Context): boolean {
   return ctx.event.command_id === undefined;
 }
