@@ -108,7 +108,7 @@ export interface GetScratchpadRequest {
   id: Id;
 }
 
-export interface GetScratchpadResponse {}
+export type GetScratchpadResponse = Record<string, string>;
 
 export async function getScratchpad(
   client: Client,
@@ -166,3 +166,19 @@ export async function putScratchpadKey(
   );
 }
 
+export interface DeleteScratchpadKeyRequest {
+  id: Id;
+  key: string;
+}
+
+export interface DeleteScratchpadKeyResponse {}
+
+export async function deleteScratchpadKey(
+  client: Client,
+  request: DeleteScratchpadKeyRequest
+): Promise<DeleteScratchpadKeyResponse> {
+  return client(
+    "DELETE",
+    "/v0/pipelines/id/" + request.id + "/scratchpad/key/" + request.key
+  );
+}
