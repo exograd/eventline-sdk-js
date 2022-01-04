@@ -90,3 +90,16 @@ export async function restartPipelineFromFailure(
     "/v0/pipelines/id/" + request.id + "/restart_from_failure"
   );
 }
+
+export interface AbortPipelineRequest {
+  id: Id;
+}
+
+export interface AbortPipelineResponse {}
+
+export async function abortPipeline(
+  client: Client,
+  request: AbortPipelineRequest
+): Promise<AbortPipelineResponse> {
+  return client("POST", "/v0/pipelines/id/" + request.id + "/abort");
+}
