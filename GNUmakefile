@@ -14,7 +14,7 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 # PERFORMANCE OF THIS SOFTWARE.
 
-all: fmt build
+all: fmt build docs
 
 build:
 	npx tsc
@@ -22,9 +22,12 @@ build:
 fmt:
 	npx prettier --write src
 
+docs:
+	npx typedoc --out docs src/*.ts
+
 clean:
 	$(RM) -r node_modules/
 	$(RM) -r dist/
 	$(RM) -r docs/
 
-.PHONY: all build fmt clean
+.PHONY: all build fmt docs clean
