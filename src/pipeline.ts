@@ -130,3 +130,20 @@ export async function deleteScratchpad(
   return client("DELETE", "/v0/pipelines/id/" + request.id + "/scratchpad");
 }
 
+export interface GetScratchpadKeyRequest {
+  id: Id;
+  key: string;
+}
+
+export type GetScratchpadKeyResponse = string;
+
+export async function getScratchpadKey(
+  client: Client,
+  request: GetScratchpadKeyRequest
+): Promise<GetScratchpadKeyResponse> {
+  return client(
+    "GET",
+    "/v0/pipelines/id/" + request.id + "/scratchpad/key/" + request.key
+  );
+}
+
