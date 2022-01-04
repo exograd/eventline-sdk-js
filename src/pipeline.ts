@@ -103,3 +103,17 @@ export async function abortPipeline(
 ): Promise<AbortPipelineResponse> {
   return client("POST", "/v0/pipelines/id/" + request.id + "/abort");
 }
+
+export interface GetScratchpadRequest {
+  id: Id;
+}
+
+export interface GetScratchpadResponse {}
+
+export async function getScratchpad(
+  client: Client,
+  request: GetScratchpadRequest
+): Promise<GetScratchpadResponse> {
+  return client("GET", "/v0/pipelines/id/" + request.id + "/scratchpad");
+}
+
