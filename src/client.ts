@@ -122,7 +122,7 @@ export function makeClient(opts: Options): Client {
         Authorization: "Bearer " + accessToken,
         "Content-Type": "application/json",
         "Content-Length": (body ?? "").length,
-        "User-Agent": "eventline-sdk-js",
+        "User-Agent": "Eventline/1.0 (platform; nodejs) eventline-sdk",
         "X-Eventline-Project-Id": options.projectId,
       },
       method,
