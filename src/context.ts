@@ -50,16 +50,19 @@ export interface Context {
  */
 export function loadContext(): Promise<Context> {
   return new Promise(function (resolve, reject) {
-    readFile("/eventline/task/context", function (err, file): void {
-      if (err) reject(err);
-      else {
-        try {
-          resolve(JSON.parse(file.toString()));
-        } catch (err) {
-          reject(err);
+    readFile(
+      process.env["EVENTLINE_CONTEXT_PATH"] ?? "",
+      function (err, file): void {
+        if (err) reject(err);
+        else {
+          try {
+            resolve(JSON.parse(file.toString()));
+          } catch (err) {
+            reject(err);
+          }
         }
       }
-    });
+    );
   });
 }
 
