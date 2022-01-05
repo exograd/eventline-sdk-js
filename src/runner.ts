@@ -17,16 +17,16 @@
 import { Client, makeClient } from "./client";
 import { Context, loadContext, getCurrentProjectId } from "./context";
 
-export type TaskImplementation = (
+export type HandlerFunction = (
   client: Client,
   context: Context
 ) => Promise<any>;
 
-export async function run(callback: TaskImplementation) {
+export async function run(handler: HandlerFunction) {
   try {
     const client = makeClient({ projectId: getCurrentProjectId() ?? "" });
     const context = await loadContext();
-    await callback(client, context);
+    await handler(client, context);
   } catch (e) {
     console.error(`error: ${e}`);
     process.exit(1);
