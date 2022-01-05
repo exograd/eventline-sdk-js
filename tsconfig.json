@@ -28,7 +28,7 @@
     "declarationMap": true,
     "baseUrl": "src/",
     "paths": {
-      "@ev": ["eventline.ts"],
+      "@ev": ["index.ts"],
       "@ev/*": ["*"]
     }
   },

@@ -14,7 +14,7 @@
 // TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 // PERFORMANCE OF THIS SOFTWARE.
 
-import type { Id } from "@ev";
+import type { Id, Maybe } from "@ev";
 import type { Event } from "@ev/event";
 
 import { readFile } from "fs";
@@ -75,4 +75,43 @@ export function isLaunchByCommand(ctx: Context): boolean {
  */
 export function isLaunchByEvent(ctx: Context): boolean {
   return ctx.event.command_id === undefined;
+}
+
+/**
+ * Returns `true` when the function is called in an Eventline instance.
+ */
+export function isExecutedInEventline(): boolean {
+  return process.env["EVENTLINE"] === "true";
+}
+
+/**
+ * Returns the current project id when the function is called in an
+ * Eventline instance.
+ */
+export function getCurrentProjectId(): Maybe<Id> {
+  return process.env["EVENTLINE_PROJECT_ID"];
+}
+
+/**
+ * Returns the current project name when the function is called in an
+ * Eventline instance.
+ */
+export function getCurrentProjectName(): Maybe<string> {
+  return process.env["EVENTLINE_PROJECT_NAME"];
+}
+
+/**
+ * Returns the current pipeline id when the function is called in an
+ * Eventline instance.
+ */
+export function getCurrentPipelineId(): Maybe<Id> {
+  return process.env["EVENTLINE_PIPELINE_ID"];
+}
+
+/**
+ * Returns the current task id when the function is called in an
+ * Eventline instance.
+ */
+export function getCurrentTaskId(): Maybe<Id> {
+  return process.env["EVENTLINE_TASK_ID"];
 }

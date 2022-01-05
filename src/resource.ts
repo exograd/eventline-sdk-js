@@ -86,11 +86,11 @@ export interface ResourceSpec<T> {
   data: T;
 }
 
-export interface Command {
+export interface CommandSpec {
   /**
    * The set of parameters used by the command.
    */
-  parameters: Parameter[];
+  parameters: ParameterSpec[];
 
   /**
    * A list of pipelines to instantiate when the command is executed.
@@ -98,7 +98,7 @@ export interface Command {
   pipelines: string[];
 }
 
-export interface Parameter {
+export interface ParameterSpec {
   /**
    * The name of the parameter. It must be unique in each command.
    */
@@ -134,7 +134,7 @@ export interface Parameter {
   environment?: string;
 }
 
-export interface Pipeline {
+export interface PipelineSpec {
   /**
    * True if multiple instances of the pipelines can be executed at the
    * same time, or false else
@@ -144,10 +144,10 @@ export interface Pipeline {
   /**
    * The set of tasks which are part of the pipeline.
    */
-  tasks: PipelineTask[];
+  tasks: PipelineTaskSpec[];
 }
 
-export interface PipelineTask {
+export interface PipelineTaskSpec {
   /**
    * The name of the task in this pipeline.
    */
@@ -196,16 +196,16 @@ export interface PipelineTask {
   retry_delay?: number;
 }
 
-export interface Task {
+export interface TaskSpec {
   /**
    * The configuration of the runtime used to execute the task.
    */
-  runtime: TaskRuntime;
+  runtime: TaskRuntimeSpec;
 
   /**
    * The list of steps to execute.
    */
-  steps: TaskStep[];
+  steps: TaskStepSpec[];
 
   /**
    * The set of environment variables defined during execution.
@@ -221,10 +221,10 @@ export interface Task {
   /**
    * The set of parameters used by the command.
    */
-  parameters?: Parameter[];
+  parameters?: ParameterSpec[];
 }
 
-export interface TaskRuntime {
+export interface TaskRuntimeSpec {
   /**
    * The identifier of the runtime.
    */
@@ -282,7 +282,7 @@ export interface TaskRuntime {
   };
 }
 
-export interface TaskStep {
+export interface TaskStepSpec {
   /**
    * A text label used on the interface to identify the step.
    */
@@ -310,7 +310,7 @@ export interface TaskStep {
   arguments?: string;
 }
 
-export interface Trigger {
+export interface TriggerSpec {
   /**
    * The name of the connector associated with the trigger.
    */
