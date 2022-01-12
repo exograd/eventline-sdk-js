@@ -19,10 +19,15 @@ import type { Client } from "@ev/client";
 
 export interface Organization {
   id: Id;
-  contact_email_address: string;
-  disabled: boolean;
   name: string;
+  address: string;
+  postal_code: string;
+  city: string;
+  country: string;
+  disabled: boolean;
+  contact_email_address: string;
   non_essential_mail_opt_in: boolean;
+  vat_id_number?: string;
 }
 
 export interface GetOrganizationRequest {}
