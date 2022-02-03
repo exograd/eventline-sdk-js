@@ -107,7 +107,7 @@ export function makeClient(opts: Options): Client {
   const options = { ...defaultOptions, ...opts };
   const timeout = 30_000;
   const ca = fs.readFileSync(__dirname + "/../data/cacert.pem");
-  const accessToken = opts.token ?? process.env["EVCLI_API_KEY"];
+  const accessToken = opts.token ?? process.env["EVENTLINE_API_KEY"];
 
   const baseURL = url.format({
     protocol: options.scheme,
