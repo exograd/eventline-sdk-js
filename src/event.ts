@@ -29,6 +29,7 @@ export interface Event {
   event_time: string;
   name: string;
   data: Object;
+  original_event_id?: Id;
 }
 
 export interface ListEventsRequest extends Pagination {
@@ -87,4 +88,17 @@ export async function createEvent(
   });
 
   return client("POST", "/v0/events", data);
+}
+
+export interface ReplayEventRequest {
+  id: Id;
+}
+
+export type ReplayEventResponse = Event;
+
+export async function replayEvent(
+  client: Client,
+  request: ReplayEventRequest
+): Promise<ReplayEventResponse> {
+  return client("POST", "/v0/events/id/" + request.id + "/replay");
 }
