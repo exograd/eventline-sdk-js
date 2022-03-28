@@ -21,19 +21,70 @@ import url from "url";
 import { buildPaginationQuery } from "./client";
 
 export interface Account {
+  /**
+   * The identifier of the account.
+   */
   id: Id;
+
+  /**
+   * The identifier of the organization of the account.
+   */
   org_id: Id;
+
+  /**
+   * The full name of the user the account belongs to (optional). The
+   * name must contain between 1 and 50 characters.
+   */
   name: string;
+
+  /**
+   * The email address of the account.
+   */
   email_address: string;
+
+  /**
+   * A flag indicating whether the account is disabled or not (optional,
+   * default is false).
+   */
   disabled: boolean;
+
+  /**
+   * The date the account was created.
+   */
   creation_time: string;
+
+  /**
+   * The date of the last time someone used this account to authenticate
+   * on the Eventline platform (optional).
+   */
   last_login_time: string;
+
+  /**
+   * The role of the account, either user or admin.
+   */
   role: string;
+
+  /**
+   * The identifier of the last project selected as current project for
+   * this account (optional).
+   */
   last_project_id: Id;
+
+  /**
+   * An object containing settings used by the account.
+   */
   settings: AccountSettings;
 }
 
+
+/**
+ * AccountSettings contains account settings.
+ */
 export interface AccountSettings {
+  /**
+   * The way dates are formatted on the website, either absolute or
+   * relative (optional, default is relative).
+   */
   date_format: "relative" | "absolute";
 }
 
