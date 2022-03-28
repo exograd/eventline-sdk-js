@@ -24,10 +24,10 @@ import tls from "tls";
 import crypto from "crypto";
 
 /**
-* Pagination is controlled by cursors. A cursor contains the parameters
-* required the control the selection of elements to be returned and
-* their order.
-*/
+ * Pagination is controlled by cursors. A cursor contains the parameters
+ * required the control the selection of elements to be returned and
+ * their order.
+ */
 export interface Pagination {
   /**
    * An opaque key; return elements positioned after the element

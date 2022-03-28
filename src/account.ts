@@ -76,7 +76,6 @@ export interface Account {
   settings: AccountSettings;
 }
 
-
 /**
  * AccountSettings contains account settings.
  */
