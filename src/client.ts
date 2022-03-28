@@ -23,11 +23,42 @@ import url from "url";
 import tls from "tls";
 import crypto from "crypto";
 
+/**
+* Pagination is controlled by cursors. A cursor contains the parameters
+* required the control the selection of elements to be returned and
+* their order.
+*/
 export interface Pagination {
+  /**
+   * An opaque key; return elements positioned after the element
+   * designated by the key in the defined order (optional).
+   */
   after?: Id;
+
+  /**
+   * An opaque key; return elements positioned before the element
+   * designated by the key in the defined order (optional).
+   */
   before?: Id;
+
+  /**
+   * The sort to apply to elements (optional, default is id). Different
+   * types of elements support different sorts; all elements support the
+   * id sort.
+   */
+  sort?: string;
+
+  /**
+   * The number of elements to return, between 0 and 100 (optional,
+   * default is 20).
+   */
   size?: number;
-  reverse?: boolean;
+
+  /**
+   * The order to use for elements, either asc for ascending order or
+   * desc for descending order (optional, default is asc).
+   */
+  order?: string;
 }
 
 export type Query = Record<string, string | number | boolean>;
