@@ -21,8 +21,19 @@ import url from "url";
 import { buildPaginationQuery } from "./client";
 
 export interface Project {
+  /**
+   * The identifier of the project.
+   */
   id: Id;
+
+  /**
+   * The identifier of the organization of the project.
+   */
   name: string;
+
+  /**
+   * The name of the project.
+   */
   org_id: Id;
 }
 
@@ -30,6 +41,33 @@ export interface ListProjectsRequest extends Pagination {}
 
 export type ListProjectsResponse = ListResponse<Project>;
 
+export interface GetProjectRequest {
+  id: Id;
+  by?: "id" | "name";
+}
+
+export type GetProjectResponse = Project;
+
+export type CreateProjectRequest = Omit<Project, "id" | "org_id">;
+
+export type CreateProjectResponse = Project;
+
+export interface DeleteProjectRequest {
+  id: Id;
+}
+
+export interface DeleteProjectResponse {}
+
+export interface UpdateProjectRequest {
+  id: Id;
+  project: Omit<Project, "id" | "org_id">;
+}
+
+export type UpdateProjectResponse = Project;
+
+/**
+ * Fetch projects in the organization.
+ */
 export async function listProjects(
   client: Client,
   request: ListProjectsRequest
@@ -41,13 +79,9 @@ export async function listProjects(
   return client("GET", url.format({ pathname: "/v0/projects", query: q }));
 }
 
-export interface GetProjectRequest {
-  id: Id;
-  by?: "id" | "name";
-}
-
-export type GetProjectResponse = Project;
-
+/**
+ * Fetch a project by identifier.
+ */
 export async function getProject(
   client: Client,
   request: GetProjectRequest
@@ -57,10 +91,9 @@ export async function getProject(
   return client("GET", "/v0/projects/" + by + "/" + request.id);
 }
 
-export type CreateProjectRequest = Omit<Project, "id" | "org_id">;
-
-export type CreateProjectResponse = Project;
-
+/**
+ * Create a new project.
+ */
 export async function createProject(
   client: Client,
   request: CreateProjectRequest
@@ -69,12 +102,9 @@ export async function createProject(
   return client("POST", "/v0/projects", data);
 }
 
-export interface DeleteProjectRequest {
-  id: Id;
-}
-
-export interface DeleteProjectResponse {}
-
+/**
+ * Delete a project.
+ */
 export async function deleteProject(
   client: Client,
   request: DeleteProjectRequest
@@ -82,13 +112,9 @@ export async function deleteProject(
   return client("DELETE", "/v0/projects/id/" + request.id);
 }
 
-export interface UpdateProjectRequest {
-  id: Id;
-  project: Omit<Project, "id" | "org_id">;
-}
-
-export type UpdateProjectResponse = Project;
-
+/**
+ * Update an existing project.
+ */
 export async function updateProject(
   client: Client,
   request: UpdateProjectRequest
