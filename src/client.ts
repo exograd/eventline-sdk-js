@@ -65,16 +65,26 @@ export type Query = Record<string, string | number | boolean>;
 
 export type Verb = "GET" | "POST" | "PUT" | "DELETE";
 
+/**
+ * The response to a paginated query is a page.
+ */
 export interface ListResponse<T> {
+  /**
+   * The list of elements contained in the page.
+   */
   elements: T[];
-  next?: {
-    after: Id;
-    size: number;
-  };
-  previous: {
-    before: Id;
-    size: number;
-  };
+
+  /**
+   * The cursor corresponding to the next page if there is one
+   * (optional).
+   */
+  next?: Pagination;
+
+  /**
+   * The cursor corresponding to the previous page if there is one
+   * (optional).
+   */
+  previous?: Pagination;
 }
 
 export interface Options {
