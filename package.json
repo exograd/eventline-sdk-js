@@ -1,5 +1,5 @@
 {
-  "name": "eventline-sdk",
+  "name": "@exograd/eventline",
   "version": "1.0.0",
   "description": "The eventline javascript SDK",
   "main": "dist/index.js",
@@ -10,14 +10,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/exograd/eventline-sdk-js.git"
+    "url": "git+https://github.com/exograd/js-eventline.git"
   },
   "author": "Exograd SAS",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/exograd/eventline-sdk-js/issues"
+    "url": "https://github.com/exograd/js-eventline/issues"
   },
-  "homepage": "https://github.com/exograd/eventline-sdk-js#readme",
+  "homepage": "https://github.com/exograd/js-eventline#readme",
   "devDependencies": {
     "@types/node": "^17.0.4",
     "prettier": "2.5.1",
