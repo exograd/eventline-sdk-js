@@ -113,7 +113,8 @@ export type Client = (verb: Verb, path: string, body?: string) => Promise<any>;
 export function buildPaginationQuery(q: Query, req: Pagination): void {
   if (req.before !== undefined) q["before"] = req.before;
   if (req.after !== undefined) q["after"] = req.after;
-  if (req.reverse !== undefined) q["reverse"] = req.reverse;
+  if (req.sort !== undefined) q["sort"] = req.sort;
+  if (req.order !== undefined) q["order"] = req.order;
   if (req.size !== undefined) q["size"] = req.size;
 }
 
