@@ -118,7 +118,9 @@ export function buildPaginationQuery(q: Query, req: Pagination): void {
   if (req.size !== undefined) q["size"] = req.size;
 }
 
-export const PublicKeyPinSet = ["gg3x7U4UrWfTUpYNy9wL2+GYOQhi3fg5UTn5pzA67gc="];
+export const PublicKeyPinSet = [
+  "209686F8FE114A17239999FFEC4C14BA2A89553E9E5A3C7819A663C913B7937D"
+];
 
 const defaultOptions: Omit<Options, "projectId"> = {
   host: "api.eventline.net",
@@ -133,7 +135,7 @@ const checkServerIdentity = function (host: string, cert: PeerCertificate) {
   const fingerprint = crypto
     .createHash("sha256")
     .update((cert as any).pubkey)
-    .digest("base64");
+    .digest("hex");
 
   if (PublicKeyPinSet.indexOf(fingerprint) === -1) {
     const msg =
