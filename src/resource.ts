@@ -344,6 +344,15 @@ export interface ListResourcesRequest extends Pagination {
 
 export type ListResourcesResponse<T> = ListResponse<Resource<T>>;
 
+export interface GetResourceRequest {
+  id: Id;
+}
+
+export type GetResourceResponse<T> = Resource<T>;
+
+/**
+ * Fetch resources in the project.
+ */
 export async function listResources<T>(
   client: Client,
   request: ListResourcesRequest
@@ -357,12 +366,9 @@ export async function listResources<T>(
   return client("GET", url.format({ pathname: "/v0/resources", query: q }));
 }
 
-export interface GetResourceRequest {
-  id: Id;
-}
-
-export type GetResourceResponse<T> = Resource<T>;
-
+/**
+ * Fetch a resource by identifier.
+ */
 export async function getResource<T>(
   client: Client,
   request: GetResourceRequest
