@@ -20,17 +20,90 @@ import type { Client, Pagination, Query, ListResponse } from "@ev/client";
 import url from "url";
 import { buildPaginationQuery } from "./client";
 
+/**
+ * Pipelines are used to define graphs of tasks which are executed as a
+ * single unit. Once a pipeline is defined, it can be instantiated
+ * either when a trigger is activated or when a command is called.
+ */
 export interface Pipeline {
+  /**
+   * The identifier of the pipeline.
+   */
   id: Id;
+
+  /**
+   * The identifier of the event associated with the pipeline.
+   */
   event_id: Id;
+
+  /**
+   * The date of the event associated with the pipeline.
+   */
+  event_time: string;
+
+  /**
+   * The identifier of the organization of the pipeline.
+   */
   org_id: Id;
+
+  /**
+   * The identifier of the project of the pipeline.
+   */
   project_id: Id;
-  trigger_id: Id;
+
+  /**
+   * The identifier of the trigger at the origin of the event
+   *(optional). Only present if the pipeline was created following the
+   *activation of a trigger.
+   */
+  trigger_id?: Id;
+
+  /**
+   * The identifier of the command at the origin of the event
+   * (optional). Only present if the pipeline was created following the
+   * execution of a command.
+   */
+  command_id?: Id;
+
+  /**
+   * The identifier of the pipeline resource (optional). The field will
+   * not be present if the resource was deleted after the pipeline was
+   * created.
+   */
+  pipeline_id?: Id;
+
+  /**
+   * The identifier of the pipeline.
+   */
   name: string;
+
+  /**
+   * A flag indicating whether the pipeline can be executed concurrently
+   * with other pipelines based on the same pipeline resource (optional,
+   * default is false).
+   */
   concurrent: boolean;
+
+  /**
+   * The date the pipeline was created.
+   */
   creation_time: string;
+
+  /**
+   * The date the first task in the pipeline started (optional).
+   */
   start_time: string;
+
+  /**
+   * The date the last task in the pipeline finished (optional).
+   */
   end_time: string;
+
+  /**
+   * The current status of the pipeline, either created, started,
+   * aborted, successful or failed. See the pipeline execution
+   * documentation for more information.
+   */
   status: "created" | "started" | "aborted" | "successful" | "failed";
 }
 
@@ -38,6 +111,67 @@ export interface ListPipelinesRequest extends Pagination {}
 
 export type ListPipelinesResponse = ListResponse<Pipeline>;
 
+export interface GetPipelineRequest {
+  id: Id;
+}
+
+export type GetPipelineResponse = Pipeline;
+
+export interface RestartPipelineRequest {
+  id: Id;
+}
+
+export interface RestartPipelineResponse {}
+
+export interface RestartPipelineFromFailureRequest {
+  id: Id;
+}
+
+export interface RestartPipelineFromFailureResponse {}
+
+export interface AbortPipelineRequest {
+  id: Id;
+}
+
+export interface AbortPipelineResponse {}
+
+export interface GetScratchpadRequest {
+  id: Id;
+}
+
+export type GetScratchpadResponse = Record<string, string>;
+
+export interface DeleteScratchpadRequest {
+  id: Id;
+}
+
+export interface DeleteScratchpadResponse {}
+
+export interface GetScratchpadKeyRequest {
+  id: Id;
+  key: string;
+}
+
+export type GetScratchpadKeyResponse = string;
+
+export interface PutScratchpadKeyRequest {
+  id: Id;
+  key: string;
+  value: string;
+}
+
+export interface PutScratchpadKeyResponse {}
+
+export interface DeleteScratchpadKeyRequest {
+  id: Id;
+  key: string;
+}
+
+export interface DeleteScratchpadKeyResponse {}
+
+/**
+ * Fetch pipelines in the project.
+ */
 export async function listPipelines(
   client: Client,
   request: ListPipelinesRequest
@@ -49,12 +183,9 @@ export async function listPipelines(
   return client("GET", url.format({ pathname: "/v0/pipelines", query: q }));
 }
 
-export interface GetPipelineRequest {
-  id: Id;
-}
-
-export type GetPipelineResponse = Pipeline;
-
+/**
+ * Fetch a pipeline by identifier.
+ */
 export async function getPipeline(
   client: Client,
   request: GetPipelineRequest
@@ -62,12 +193,9 @@ export async function getPipeline(
   return client("GET", "/v0/pipelines/id/" + request.id);
 }
 
-export interface RestartPipelineRequest {
-  id: Id;
-}
-
-export interface RestartPipelineResponse {}
-
+/**
+ * Restart a finished pipeline.
+ */
 export async function restartPipeline(
   client: Client,
   request: RestartPipelineRequest
@@ -75,12 +203,9 @@ export async function restartPipeline(
   return client("POST", "/v0/pipelines/id/" + request.id + "/restart");
 }
 
-export interface RestartPipelineFromFailureRequest {
-  id: Id;
-}
-
-export interface RestartPipelineFromFailureResponse {}
-
+/**
+ * Restart the failed tasks in a finished pipeline.
+ */
 export async function restartPipelineFromFailure(
   client: Client,
   request: RestartPipelineFromFailureRequest
@@ -91,12 +216,9 @@ export async function restartPipelineFromFailure(
   );
 }
 
-export interface AbortPipelineRequest {
-  id: Id;
-}
-
-export interface AbortPipelineResponse {}
-
+/**
+ * Abort a pipeline.
+ */
 export async function abortPipeline(
   client: Client,
   request: AbortPipelineRequest
@@ -104,12 +226,9 @@ export async function abortPipeline(
   return client("POST", "/v0/pipelines/id/" + request.id + "/abort");
 }
 
-export interface GetScratchpadRequest {
-  id: Id;
-}
-
-export type GetScratchpadResponse = Record<string, string>;
-
+/**
+ * Fetch all entries in a scratchpad.
+ */
 export async function getScratchpad(
   client: Client,
   request: GetScratchpadRequest
@@ -117,12 +236,9 @@ export async function getScratchpad(
   return client("GET", "/v0/pipelines/id/" + request.id + "/scratchpad");
 }
 
-export interface DeleteScratchpadRequest {
-  id: Id;
-}
-
-export interface DeleteScratchpadResponse {}
-
+/**
+ * Delete all entries in a scratchpad.
+ */
 export async function deleteScratchpad(
   client: Client,
   request: DeleteScratchpadRequest
@@ -130,13 +246,9 @@ export async function deleteScratchpad(
   return client("DELETE", "/v0/pipelines/id/" + request.id + "/scratchpad");
 }
 
-export interface GetScratchpadKeyRequest {
-  id: Id;
-  key: string;
-}
-
-export type GetScratchpadKeyResponse = string;
-
+/**
+ * Fetch an entry in a scratchpad.
+ */
 export async function getScratchpadKey(
   client: Client,
   request: GetScratchpadKeyRequest
@@ -147,14 +259,9 @@ export async function getScratchpadKey(
   );
 }
 
-export interface PutScratchpadKeyRequest {
-  id: Id;
-  key: string;
-  value: string;
-}
-
-export interface PutScratchpadKeyResponse {}
-
+/**
+ * Set the value of an entry in a scratchpad.
+ */
 export async function putScratchpadKey(
   client: Client,
   request: PutScratchpadKeyRequest
@@ -166,13 +273,9 @@ export async function putScratchpadKey(
   );
 }
 
-export interface DeleteScratchpadKeyRequest {
-  id: Id;
-  key: string;
-}
-
-export interface DeleteScratchpadKeyResponse {}
-
+/**
+ * Delete an entry in a scratchpad.
+ */
 export async function deleteScratchpadKey(
   client: Client,
   request: DeleteScratchpadKeyRequest
