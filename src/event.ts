@@ -147,7 +147,7 @@ export async function createEvent(
 }
 
 /**
- * Create a new custom event.
+ * Replay an existing event.
  */
 export async function replayEvent(
   client: Client,
