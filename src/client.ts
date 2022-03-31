@@ -119,7 +119,7 @@ export function buildPaginationQuery(q: Query, req: Pagination): void {
 }
 
 export const PublicKeyPinSet = [
-  "820DF1ED4E14AD67D352960DCBDC0BDBE198390862DDF8395139F9A7303AEE07"
+  "820df1ed4e14ad67d352960dcbdc0bdbe198390862ddf8395139f9a7303aee07"
 ];
 
 const defaultOptions: Omit<Options, "projectId"> = {
