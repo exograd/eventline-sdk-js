@@ -94,7 +94,7 @@ export interface CreateEventRequest {
   data: object;
 }
 
-export type CreateEventResponse = Event;
+export type CreateEventResponse = Event[];
 
 export interface ReplayEventRequest {
   id: Id;
