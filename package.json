@@ -1,6 +1,6 @@
 {
   "name": "@exograd/eventline",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The eventline javascript SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
