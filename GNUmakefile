@@ -25,9 +25,12 @@ fmt:
 docs:
 	npx typedoc --out docs src/*.ts
 
+publish:
+	npm publish --access public
+
 clean:
 	$(RM) -r node_modules/
 	$(RM) -r dist/
 	$(RM) -r docs/
 
-.PHONY: all build fmt docs clean
+.PHONY: all build fmt docs publish clean
